@@ -39,7 +39,6 @@ class SleepTrackerViewModel(
 
     private var viewModelJob = Job()
 
-
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val nights = database.getAllNights()
@@ -135,5 +134,12 @@ class SleepTrackerViewModel(
     val clearButtonVisible = Transformations.map(nights) {
         it?.isNotEmpty()
     }
-}
+    private var _showSnackbarEvent = MutableLiveData<Boolean>()
 
+    val showSnackBarEvent: LiveData<Boolean>
+        get() = _showSnackbarEvent
+
+    fun doneShowingSnackbar() {
+        _showSnackbarEvent.value = false
+    }
+}
